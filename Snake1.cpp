@@ -2,18 +2,46 @@
 #include <cstdlib>
 #include <time.h>
 #include <vector>
-int i_size = 20;
-int j_size = 50;
-int boardposition[20][50];
-char board[20][50];
+#include <windows.h>
+#include <conio.h>
+int i_size = 30;
+int j_size = 30;
+int direction;
+int boardposition[30][30];
+char board[30][30];
 using namespace std;
 class Snake
 {
-    int current_head;
+    public:
+    int current_headX;
+    int current_headY;
     vector<int>body;
     int size;
-
+    char currentdirection;
+    Snake()
+    {
+        current_headX = 15;
+        current_headY = 15;
+        body.push_back(150);
+        size = 1;
+        currentdirection = 'd';
+    }
 };
+void control()
+{
+    cout<<"w for up"<<endl;
+    cout<<"a for left"<<endl;
+    cout<<"d for right"<<endl;
+    cout<<"s for down"<<endl;
+
+}
+void hideCursor() {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        CONSOLE_CURSOR_INFO cursorInfo;
+        GetConsoleCursorInfo(handle, &cursorInfo);
+        cursorInfo.bVisible = false; // Hide the cursor
+        SetConsoleCursorInfo(handle, &cursorInfo);
+    }
 int food_y_pos()
 {
     int food_y;
@@ -81,17 +109,73 @@ void foodspawn(int count)
             }
         }
 }
+bool gameover()
+{
+    
+}
+void checkinput(Snake *s)
+{
+    if(kbhit())
+    {
+        char c = getch();
+        switch(c)
+        {
+            case 'a':
+                    direction = 1;
+                    break;
+            case 'w':
+                    direction = 2;
+                    break;
+            case 'd':
+                    direction = 3;
+                    break;
+            case 's':
+                    direction = 4;
+                    break;
+            default:
+                break;
+        }
+    }
+    else
+    {
+        direction = s->currentdirection;
+    }
+}
+void movement(Snake *s)
+{
+    if(direction == 1)
+    {
+        s->current_headX++;
+    }
+    else if(direction == 2)
+    {
+        s->current_headY++;
+    }
+    else if(direction == 3)
+    {
+        s->current_headX--;
+    }
+    else if(direction == 4)
+    {
+        s->current_headY--;
+    }
+}
 int main()
 {
     cout << "Snake Game Easy lvl" << endl;
-    vector<int> snake;
-    int count = 10;
+    Snake s;
+    int count = 1;
+    hideCursor();
     boardrefresh();
-    while (count > 0)
+    
+    while(!gameover())
     {
-        count--;
-        boardrefresh();
+        count++;
         foodspawn(count);
         boarddisplay();
+        checkinput(&s);
+        movement(&s);
+        Sleep(100);
+        control();
     }
 }

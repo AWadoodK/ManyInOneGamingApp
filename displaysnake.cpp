@@ -4,7 +4,7 @@ using namespace std;
 class Snake
 {
     int current_head;
-    int size;
+    int length;
     vector<int>body;
 };
 int main()

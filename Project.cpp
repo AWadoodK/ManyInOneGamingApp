@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<conio.h>
 using namespace std;
 void Singleplayer()
 {
