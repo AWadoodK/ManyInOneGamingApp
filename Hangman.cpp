@@ -9,41 +9,41 @@ void hang(int a)
     system("cls");
     if (a == 1)
     {
-        cout << "   0" << endl;
+        cout << "\t\t\t\t\t\t   0" << endl;
     }
     else if (a == 2)
     {
-        cout << "   0" << endl;
-        cout << "   |" << endl;
+        cout << "\t\t\t\t\t\t    0" << endl;
+        cout << "\t\t\t\t\t\t    |" << endl;
     }
     else if (a == 3)
     {
-        cout << "   0" << endl;
-        cout << "  \\|" << endl;
+        cout << "\t\t\t\t\t\t    0" << endl;
+        cout << "\t\t\t\t\t\t   \\|" << endl;
     }
     else if (a == 4)
     {
-        cout << "   0" << endl;
-        cout << "  \\|/" << endl;
+        cout << "\t\t\t\t\t\t    0" << endl;
+        cout << "\t\t\t\t\t\t   \\|/" << endl;
     }
     else if (a == 5)
     {
-        cout << "   0" << endl;
-        cout << "  \\|/" << endl;
-        cout << "  /" << endl;
+        cout << "\t\t\t\t\t\t    0" << endl;
+        cout << "\t\t\t\t\t\t   \\|/" << endl;
+        cout << "\t\t\t\t\t\t   /" << endl;
     }
     else if (a == 6)
     {
-        cout << "   0" << endl;
-        cout << "  \\|/" << endl;
-        cout << "  / \\" << endl;
+        cout << "\t\t\t\t\t\t    0" << endl;
+        cout << "\t\t\t\t\t\t   \\|/" << endl;
+        cout << "\t\t\t\t\t\t   / \\" << endl;
     }
     else if (a == 7)
     {
-        cout << "YOU LOST" << endl;
-        cout << "  _0_" << endl;
-        cout << "  \\|/" << endl;
-        cout << "  / \\" << endl;
+        cout << "\t\t\t\t\t\t YOU LOST" << endl;
+        cout << "\t\t\t\t\t\t   _0_" << endl;
+        cout << "\t\t\t\t\t\t   \\|/" << endl;
+        cout << "\t\t\t\t\t\t   / \\" << endl;
     }
     else
     {
@@ -53,20 +53,20 @@ void hang(int a)
 int main()
 {
     cout << "<<<<<<-----------------Welcome to Hangman--------------------->>>>>>" << endl;
-    vector<char> letters;
-    string arr;
-    cout << "Enter the word" << endl;
-    cin >> arr;
-    int size = arr.length();
-    string array(arr,'_');
-    for (int i = 0; i < size; i++)
+    vector<char>letters;
+    string arr,word;
+    cout<<"Enter the word: ";
+    cin>>arr;
+    word = arr;
+    int length = arr.length();
+    char array[length];
+    for(int i = 0; i < length; i++)
     {
         arr[i] = tolower(arr[i]);
         array[i] = '_';
     }
     system("cls");
-    // i want to add system cls shit. For the new Screen
-    cout << "The word has " << size << " letters" << endl;
+    cout<<"The word has "<<length<<" letters"<<endl;
     char letter;
     int lives = 7;
     bool win = false;
@@ -92,7 +92,7 @@ int main()
             cout << "Only from english Alphabets" << endl;
             continue;
         }
-        for (int j = 0; j < size; j++)
+        for (int j = 0; j < length; j++)
         {
             if (array[j] == letter)
             {
@@ -105,7 +105,7 @@ int main()
         {
             continue;
         }
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < length; i++)
         {
             if (arr[i] == letter)
             {
@@ -122,7 +122,7 @@ int main()
             letters.push_back(letter);
             hang(7 - lives);
         }
-        else if (answers == size)
+        else if (answers == length)
         {
             break;
         }
@@ -130,6 +130,11 @@ int main()
         {
             hang(7 - lives);
         }
+        for(int i = 0; i < length; i++)
+        {
+            cout<<array[i];
+        }
+        cout<<endl;
     }
     if (lives == 0)
     {
@@ -139,6 +144,6 @@ int main()
     {
         cout << "Congrats Champ. You Won!!";
     }
-    cout << "\nthe word was " << arr << endl;
+    cout << "\nthe word was " << word << endl;
     return 0;
 }
