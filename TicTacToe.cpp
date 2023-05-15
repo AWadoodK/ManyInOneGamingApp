@@ -50,11 +50,12 @@ int main()
     output();
     while (turn < 9)
     {
-        cout << "Enter player " << t << endl;
+        cout << "\t\tPlayer " <<t<<" enter a number: \t";
         cin >> option;
         if (option < 1 || option > 9)
         {
             cout << "invalid option" << endl;
+            system("cls");
             output();
             continue;
         }
@@ -73,6 +74,7 @@ int main()
         }
         if (board[row][col] == player1 || board[row][col] == player2)
         {
+            system("cls");
             cout << "This box is taken" << endl;
             cout << "TRY AGAIN" << endl;
             output();
@@ -85,6 +87,7 @@ int main()
             else
                 board[row][col] = player2;
         }
+        system("cls");
         output();
         if (game() == true)
         {
