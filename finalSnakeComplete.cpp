@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <string.h>
+#include<sstream>
 using namespace std;
 int i_size = 30;
 int j_size = 30;
@@ -31,6 +32,61 @@ void makeboard()
             }
         }
     }
+}
+void Store_in_file(int newscore, string &path)
+{
+    ifstream file(path);
+    stringstream updateContent;
+    bool namefound = false;
+    string line;
+    string name;
+    cout << "Enter your name: ";
+    cin >> name;
+    string player;
+    for (int i = 0; i < name.length(); i++)
+    {
+        name[i] = tolower(name[i]);
+    }
+    while (getline(file, line))
+    {
+        stringstream ss(line);
+        getline(ss, player, ',');
+        if (name == player)
+        {
+            namefound = true;
+            string currentscore;
+            getline(ss, currentscore, ',');
+            int score = stoi(currentscore);
+            if (score < newscore)
+            {
+                // Update the Score
+                updateContent << name << "," << newscore << endl;
+            }
+            else
+            {
+                // Keep the current Score
+                updateContent << line << endl;
+            }
+        }
+        else
+        {
+            updateContent << line << endl;
+        }
+    }
+    if (!namefound)
+    {
+        updateContent << name << "," << newscore << endl;
+    }
+    file.close();
+    ofstream write(path);
+    if (!write.is_open())
+    {
+        cout << "Couldn't Open the file" << endl;
+        return;
+    }
+    write << updateContent.str();
+    write.close();
+    cout << "Score Saved Successfully" << endl;
 }
 class Snake
 {
@@ -226,6 +282,8 @@ public:
     void gamestart(int Score_Multiplier, int refresh_rate, int difficulty_factor)
     {
         food();
+        int score;
+        string path = "ScoreSnake.csv";
         while (true)
         {
             bool game = gameover();
@@ -233,7 +291,8 @@ public:
             int x = move();
             updateposition(x);
             updateboardsnake();
-            cout << "Score: " << (length - 1) * Score_Multiplier << endl;
+            score = (length -1)*Score_Multiplier;
+            cout << "Score: " << score << endl;
 
             cout << endl;
             Sleep(refresh_rate);
@@ -243,7 +302,7 @@ public:
                 break;
             }
         }
-        file(difficulty_factor, (length - 1) * 10);
+        Store_in_file(score,path);
     }
 };
 void file(int diff, int score)
