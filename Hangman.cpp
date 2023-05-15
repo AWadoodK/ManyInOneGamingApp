@@ -9,9 +9,9 @@ string Easy[15] = {"Cat", "Dog", "Hat", "Car", "Sun", "Bed", "Cup", "Ball", "Tre
 string Medium[15] = {"Guitar", "Pizza", "Tiger", "Apple", "Snake", "Rabbit", "Robot", "Tadpole", "Monkey", "Chair", "Banana", "Mouse", "House", "Water", "Music"};
 string Hard[15] = {"Elephant", "Chocolate", "Butterfly", "Universe", "Ecosystem", "Trampoline", "Parachute", " Symphony ", "Xylophone", "Kangaroo", "Chameleon", "Pharaoh", "Cucumber", "Labyrinth", "Pterodactyl"};
 // Wadood shall make this hangman look better
-void Store_in_file(int newscore)
+void Store_in_file(int newscore, string &path)
 {
-    ifstream file("ScoreHangman.csv");
+    ifstream file(path);
     stringstream updateContent;
     bool namefound = false;
     string line;
@@ -54,7 +54,7 @@ void Store_in_file(int newscore)
         updateContent << name << "," << newscore << endl;
     }
     file.close();
-    ofstream write("ScoreHangman.csv");
+    ofstream write(path);
     if (!write.is_open())
     {
         cout << "Couldn't Open the file" << endl;
@@ -227,6 +227,8 @@ void Hangman()
         if (lives == 0)
         {
             cout << "You lost" << endl;
+            cout << "\nthe word was " << word << endl;
+            cout << "Score: " << score << endl;
             break;
         }
         else
@@ -249,7 +251,8 @@ void Hangman()
             }
         }
     }
-    Store_in_file(score);
+    string path = "ScoreHangman.csv";
+    Store_in_file(score, path);
 }
 int main()
 {
