@@ -253,6 +253,7 @@ void file(int diff, int score)
 }
 void hideCursor()
 {
+    
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursorInfo;
     GetConsoleCursorInfo(handle, &cursorInfo);

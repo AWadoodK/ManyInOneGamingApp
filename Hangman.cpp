@@ -1,12 +1,12 @@
-#ifndef HANGMAN.H
-#define HANGMAN.H
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <conio.h>
 using namespace std;
 // Wadood shall make this hangman look better
 void hang(int a)
 {
+    system("cls");
     if (a == 1)
     {
         cout << "   0" << endl;
@@ -50,20 +50,21 @@ void hang(int a)
         cout << endl;
     }
 }
-void Hangman()
+int main()
 {
     cout << "<<<<<<-----------------Welcome to Hangman--------------------->>>>>>" << endl;
     vector<char> letters;
     string arr;
     cout << "Enter the word" << endl;
     cin >> arr;
-    int size = arr.size();
+    int size = arr.length();
     string array(arr,'_');
     for (int i = 0; i < size; i++)
     {
         arr[i] = tolower(arr[i]);
         array[i] = '_';
     }
+    system("cls");
     // i want to add system cls shit. For the new Screen
     cout << "The word has " << size << " letters" << endl;
     char letter;
@@ -139,6 +140,5 @@ void Hangman()
         cout << "Congrats Champ. You Won!!";
     }
     cout << "\nthe word was " << arr << endl;
-    return;
+    return 0;
 }
-#endif
