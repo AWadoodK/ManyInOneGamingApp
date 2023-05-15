@@ -41,7 +41,6 @@ private:
     int length;
     int currentposition;
     char currentdirection;
-    friend void gamestart(Snake *s);
 
 public:
     Snake()
@@ -55,8 +54,8 @@ public:
     }
     void updateposition(int x)
     {
-        headX = x / 30;
-        headY = x % 30;
+        headX = x / i_size;
+        headY = x % i_size;
         currentposition = x;
         bool b = false;
         if (x == foodspawn)
@@ -93,17 +92,20 @@ public:
         for (int k = 0; k < length; k++)
         {
             int x, y;
-            x = body[k] / 30;
-            y = body[k] % 30;
+            x = body[k] / i_size;
+            y = body[k] % i_size;
             boarddisplay[x][y] = '+';
         }
         int x = foodspawn / 30;
         int y = foodspawn % 30;
         boarddisplay[x][y] = '0';
     }
-    void displayboard()
+    void displayboard(bool cond)
     {
-        system("cls");
+        if (cond)
+        {
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), {0, 0});
+        }
         for (int i = 0; i < i_size; i++)
         {
             for (int j = 0; j < j_size; j++)
@@ -139,7 +141,7 @@ public:
         int y = food_y_pos();
         if (boarddisplay[x][y] == ' ')
         {
-            foodspawn = x * 30 + y;
+            foodspawn = x * i_size + y;
             boarddisplay[x][y] = 'O';
         }
         else
@@ -193,7 +195,7 @@ public:
                 break;
             }
         }
-        return headX * 30 + headY;
+        return headX * i_size + headY;
     }
     bool gameover()
     {
@@ -212,8 +214,8 @@ public:
         }
         for (int i = 0; i < length; i++)
         {
-            x = body[i] / 30;
-            y = body[i] % 30;
+            x = body[i] / i_size;
+            y = body[i] % i_size;
             if (x == i_size - 1 || x == 0 || y == j_size - 1 || y == 0)
             {
                 condition = true;
@@ -223,12 +225,11 @@ public:
     }
     void gamestart(int Score_Multiplier, int refresh_rate, int difficulty_factor)
     {
-
         food();
         while (true)
         {
             bool game = gameover();
-            displayboard();
+            displayboard(true);
             int x = move();
             updateposition(x);
             updateboardsnake();
@@ -247,7 +248,8 @@ public:
 };
 void file(int diff, int score)
 {
-    // To Store the final Score of the user
+    ifstream file("Snakescore.csv",ios::app);
+    
 }
 void hideCursor()
 {
@@ -257,19 +259,19 @@ void hideCursor()
     cursorInfo.bVisible = false; // Hide the cursor
     SetConsoleCursorInfo(handle, &cursorInfo);
 }
-int main()
+void Snakegame()
 {
     int difficulty;
     Snake s;
     makeboard();
     s.food();
     s.updateboardsnake();
-    s.displayboard();
+    s.displayboard(false);
     cout << "\n\n\t\tWelcome to Snake Game\n\n";
     cout << "Select Difficulty (default Easy)\n";
-    cout << "(1)Easy (Refresh Rate 150, Score Multiplier 5)\n";
-    cout << "(2)Intermediate (Refresh Rate 100, Score Multiplier 10)\n";
-    cout << "(3)Hard (Refresh Rate 60 , Score Multiplier 15)\n";
+    cout << "(1)Easy (Slow Snake,  Score Multiplier 5)\n";
+    cout << "(2)Intermediate (Fast Snake, Score Multiplier 10)\n";
+    cout << "(3)Hard (Faster Snake, Score Multiplier 15)\n";
     cin >> difficulty;
     int Score_Multiplier, Refresh_Rate;
     if (difficulty == 2)
@@ -287,11 +289,12 @@ int main()
         Score_Multiplier = 5;
         Refresh_Rate = 150;
     }
+    system("cls");
     hideCursor();
     makeboard();
     s.food();
     s.updateboardsnake();
-    s.displayboard();
+    s.displayboard(false);
     int play, score;
     cout << "Press w to move up" << endl;
     cout << "Press a to move left" << endl;
@@ -301,11 +304,16 @@ int main()
     cin >> play;
     if (play == 1)
     {
+        system("cls");
         s.gamestart(Score_Multiplier, Refresh_Rate, difficulty);
     }
     else
     {
         cout << "Have a good day sir" << endl;
     }
+}
+int main()
+{
+    Snakegame();
     return 0;
 }
