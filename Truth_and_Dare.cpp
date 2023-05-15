@@ -5,8 +5,8 @@
 
 using namespace std;
 
-int main() {
-    string name;
+void truthdare() {
+    string pername;
     int choice, rand_num;
     bool playing = true;
 
@@ -14,8 +14,8 @@ int main() {
 
     cout << "Welcome to Truth and Dare!" << endl;
     cout << "What's your name? ";
-    getline(cin, name);
-    cout << "Hi, " << name << "! Let's play!" << endl;
+    getline(cin, pername);
+    cout << "Hi, " << pername << "! Let's play!" << endl;
 
     while (playing) {
         cout << endl;
@@ -195,7 +195,7 @@ int main() {
                 break;
             case 3:
                 cout << endl;
-                cout << "Thanks for playing, " << name << "!" << endl;
+                cout << "Thanks for playing, " << pername << "!" << endl;
                 playing = false;
                 break;
             default:
@@ -203,6 +203,4 @@ int main() {
             break;
         }
 }
-
-return 0;
 }
