@@ -2,6 +2,7 @@
 #include <cmath>
 #include <string>
 
+//Copied Code
 enum Piece { KING, QUEEN, BISHOP, KNIGHT, ROOK, PAWN, EMPTY };
 enum Color { WHITE, BLACK, NONE };
 
