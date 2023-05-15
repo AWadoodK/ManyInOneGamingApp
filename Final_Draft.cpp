@@ -10,22 +10,22 @@
 #include <sstream>
 using namespace std;
 
-//file handling function
+// file handling function
 void view_score(string path)
 {
     ifstream file(path);
-    if(!file.is_open())
+    if (!file.is_open())
     {
-        cout<<"Couldn't Open file"<<endl;
+        cout << "Couldn't Open file" << endl;
         return;
     }
-    string line,name,score;
-    while(getline(file,line))
+    string line, name, score;
+    while (getline(file, line))
     {
         stringstream ss(line);
-        getline(ss,name,',');
-        getline(ss,score,',');
-        cout<<"Name: "<<name<<"\tScore: "<<score<<endl;
+        getline(ss, name, ',');
+        getline(ss, score, ',');
+        cout << "Name: " << name << "\tScore: " << score << endl;
     }
 }
 void Store_in_file(int newscore, string &path)
@@ -84,9 +84,7 @@ void Store_in_file(int newscore, string &path)
     cout << "Score Saved Successfully" << endl;
 }
 
-
-
-//SNAKE GAME
+// SNAKE GAME
 int i_size = 30;
 int j_size = 30;
 int foodspawn;
@@ -331,7 +329,7 @@ public:
 };
 void hideCursor()
 {
-    
+
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursorInfo;
     GetConsoleCursorInfo(handle, &cursorInfo);
@@ -392,11 +390,9 @@ void Snakegame()
     }
 }
 
-
-
-//TIC TAC TOE
+// TIC TAC TOE
 char show;
-int again=0;
+int again = 0;
 char tictactoe_p1 = 'X';
 char tictactoe_p2 = '0';
 char tictactoe_board[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
@@ -430,112 +426,114 @@ void tictactoe_output()
         cout << "\t\t";
         for (int j = 0; j < 3; j++)
         {
-            cout <<"\t"<< tictactoe_board[i][j];
-            if(j<2){
-            cout<<"\t|";
+            cout << "\t" << tictactoe_board[i][j];
+            if (j < 2)
+            {
+                cout << "\t|";
             }
         }
-        
+
         cout << endl;
-        cout<<"\t\t---------------------------------------------------"<<endl;
+        cout << "\t\t---------------------------------------------------" << endl;
     }
     cout << endl;
 }
 int tictactoe()
-{ do{
-    system("cls");
-    cout<<"\t\t---------------------------------------------------"<<endl;
-    cout << "\n\n\t\t\t\tTic-Tac-Toe\n\n\n";
-    cout<<"\t\t---------------------------------------------------"<<endl;
-    int titactoeoption;
-    int t = 1;
-    cout<<"\t\t---------------------------------------------------"<<endl;
-    cout << "\t\t\t\tPlayer 1 = " << tictactoe_p1 << endl;
-    cout << "\t\t\t\tplayer 2 = " << tictactoe_p2 << endl;
-    cout<<"\t\t---------------------------------------------------"<<endl;
-    int tictactoe_turn = 0;
-    tictactoe_output();
-    while (tictactoe_turn < 9)
+{
+    do
     {
-        show=tictactoe_p1;
-        cout << "\t\tPlayer " <<t<<" enter a number to Replace "<<show <<" with: \t";
-        cin >> titactoeoption;
-        if (titactoeoption < 1 || titactoeoption > 9)
+        system("cls");
+        cout << "\t\t---------------------------------------------------" << endl;
+        cout << "\n\n\t\t\t\tTic-Tac-Toe\n\n\n";
+        cout << "\t\t---------------------------------------------------" << endl;
+        int titactoeoption;
+        int t = 1;
+        cout << "\t\t---------------------------------------------------" << endl;
+        cout << "\t\t\t\tPlayer 1 = " << tictactoe_p1 << endl;
+        cout << "\t\t\t\tplayer 2 = " << tictactoe_p2 << endl;
+        cout << "\t\t---------------------------------------------------" << endl;
+        int tictactoe_turn = 0;
+        tictactoe_output();
+        while (tictactoe_turn < 9)
         {
-            cout << "Invalid titactoeoption" << endl;
-            system("cls");
-            tictactoe_output();
-            continue;
-        }
-        int tictactoe_row, tictactoe_col;
-        // check if the box is already taken
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
+            show = tictactoe_p1;
+            cout << "\t\tPlayer " << t << " enter a number to Replace " << show << " with: \t";
+            cin >> titactoeoption;
+            if (titactoeoption < 1 || titactoeoption > 9)
             {
-                if (tictactoe_board[i][j] == titactoeoption + '0')
+                cout << "Invalid titactoeoption" << endl;
+                system("cls");
+                tictactoe_output();
+                continue;
+            }
+            int tictactoe_row, tictactoe_col;
+            // check if the box is already taken
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
                 {
-                    tictactoe_row = i;
-                    tictactoe_col = j;
+                    if (tictactoe_board[i][j] == titactoeoption + '0')
+                    {
+                        tictactoe_row = i;
+                        tictactoe_col = j;
+                    }
                 }
             }
-        }
-        if (tictactoe_board[tictactoe_row][tictactoe_col] == tictactoe_p1 || tictactoe_board[tictactoe_row][tictactoe_col] == tictactoe_p2)
-        {
-            system("cls");
-            cout << "This box is taken" << endl;
-            cout << "TRY AGAIN" << endl;
-            tictactoe_output();
-            continue;
-        }
-        else
-        {
-            if (t == 1)
-                tictactoe_board[tictactoe_row][tictactoe_col] = tictactoe_p1;
-            else
-                tictactoe_board[tictactoe_row][tictactoe_col] = tictactoe_p2;
-        }
-        system("cls");
-        tictactoe_output();
-        if (tictactoe_game() == true)
-        {
-            cout << "Player" << t << " Won!!" << endl;
-            break;
-        }
-        if (t == 1){
-            t = 2;
-            show=tictactoe_p2;
+            if (tictactoe_board[tictactoe_row][tictactoe_col] == tictactoe_p1 || tictactoe_board[tictactoe_row][tictactoe_col] == tictactoe_p2)
+            {
+                system("cls");
+                cout << "This box is taken" << endl;
+                cout << "TRY AGAIN" << endl;
+                tictactoe_output();
+                continue;
             }
-        else{
-            t = 1;
-            show=tictactoe_p1;
+            else
+            {
+                if (t == 1)
+                    tictactoe_board[tictactoe_row][tictactoe_col] = tictactoe_p1;
+                else
+                    tictactoe_board[tictactoe_row][tictactoe_col] = tictactoe_p2;
+            }
+            system("cls");
+            tictactoe_output();
+            if (tictactoe_game() == true)
+            {
+                cout << "Player" << t << " Won!!" << endl;
+                break;
+            }
+            if (t == 1)
+            {
+                t = 2;
+                show = tictactoe_p2;
+            }
+            else
+            {
+                t = 1;
+                show = tictactoe_p1;
+            }
+            tictactoe_turn++;
         }
-        tictactoe_turn++;
-    }
-    if (tictactoe_game() == false)
-    {
-        cout << "Its a Draw" << endl;
-    }
-    cout<<"\n";
-    cout<<"Enter 1 to Exit or 0 to Play Again?\n";
-    cin>>again;
-}while(again==0);
-return 0;
+        if (tictactoe_game() == false)
+        {
+            cout << "Its a Draw" << endl;
+        }
+        cout << "\n";
+        cout << "Enter 1 to Exit or 0 to Play Again?\n";
+        cin >> again;
+    } while (again == 0);
+    return 0;
 }
-
-
-
-
 
 void Singleplayer()
 {
     int option;
     bool condition = true;
     do
-    {   system("cls");
-        cout<<"\t\t------------------------------"<<endl;
+    {
+        system("cls");
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t         Game Menu           " << endl;
-        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t   Select from the following  " << endl;
         cout << "\t\t                              " << endl;
         cout << "\t\t                              " << endl;
@@ -543,111 +541,114 @@ void Singleplayer()
         cout << "\t\t   2. Hangman                 " << endl;
         cout << "\t\t   3. Wordly                  " << endl;
         cout << "\t\t   4. Back to Main            " << endl;
-        cout<<"\t\t------------------------------"<<endl;
-        cin>>option;
-        cout<<endl<<endl;
+        cout << "\t\t------------------------------" << endl;
+        cin >> option;
+        cout << endl
+             << endl;
         switch (option)
         {
-            case 1:
-                Snakegame();
-                break;
+        case 1:
+            Snakegame();
+            break;
 
-            case 2:
-                //Hangman();
-                break;
-            case 3:
-                //Wordly();
-                break;
-            case 4:
-                condition = false;
-                system("cls");
-                break;
-            default:
-                cout<<"Invalid Option";
-                break;
+        case 2:
+            // Hangman();
+            break;
+        case 3:
+            // Wordly();
+            break;
+        case 4:
+            condition = false;
+            system("cls");
+            break;
+        default:
+            cout << "Invalid Option";
+            break;
         }
     } while (condition);
-    
-
 }
 void Multiplayer()
 {
     int option;
     bool condition = true;
     do
-    {   system("cls");
-        cout<<"\t\t------------------------------"<<endl;
+    {
+        system("cls");
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t          Game Menu           " << endl;
-        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t   Select from the following  " << endl;
-        cout << "\t\t                             " << endl;
-        cout << "\t\t                             " << endl;
+        cout << "\t\t                              " << endl;
+        cout << "\t\t                              " << endl;
         cout << "\t\t   1. TicTacToe               " << endl;
         cout << "\t\t   2. Truth And Dare          " << endl;
         cout << "\t\t   3. Back to Main            " << endl;
-        cout<<"\t\t------------------------------"<<endl;
-        cin>>option;
-        cout<<endl<<endl;
+        cout << "\t\t------------------------------" << endl;
+        cin >> option;
+        cout << endl
+             << endl;
         switch (option)
         {
-            case 1:
-                tictactoe();
-                break;
+        case 1:
+            tictactoe();
+            break;
 
-            case 2:
-                //Truth_n_Dare();
-                break;
+        case 2:
+            // Truth_n_Dare();
+            break;
 
-            case 3:
-                condition = false;
-                system("cls");
-                break;
+        case 3:
+            condition = false;
+            system("cls");
+            break;
 
-            default:
-                cout<<"Invalid Option";
+        default:
+            cout << "Invalid Option";
 
-                break;
+            break;
         }
-    }while(condition);
+    } while (condition);
 }
 int main()
-{   cout<<"\t\t------------------------------"<<endl;
-    cout<<"\n\n\t\t   Welcome to ManyInOneGames\n\n";
-    cout<<"\t\t-------------------------------"<<endl;
+{
+    cout << "\t\t------------------------------" << endl;
+    cout << "\n\n\t\t   Welcome to ManyInOneGames\n\n";
+    cout << "\t\t-------------------------------" << endl;
     int option;
-    do{
-        
+    do
+    {
+
         cout << "\t\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
         cout << "\t\tX         Main Menu           X" << endl;
         cout << "\t\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
         cout << "\t\tX  Select from the following  X" << endl;
         cout << "\t\tX                             X" << endl;
-    	cout << "\t\tX                             X" << endl;
+        cout << "\t\tX                             X" << endl;
         cout << "\t\tX  1. Single Player Games     X" << endl;
         cout << "\t\tX  2. Multiplayer Games       X" << endl;
         cout << "\t\tX  3. Quit                    X" << endl;
         cout << "\t\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
-      
-        cin>>option;
-        if(option == 1)
+
+        cin >> option;
+        if (option == 1)
         {
             system("cls");
             Singleplayer();
-
         }
-        else if(option == 2)
-        {   system("cls");
+        else if (option == 2)
+        {
+            system("cls");
             Multiplayer();
         }
-        else if(option == 3)
+        else if (option == 3)
         {
             break;
             system("cls");
         }
         else
         {
-            cout<<"Invalid Option. Try again"<<endl;
+            cout << "Invalid Option. Try again" << endl;
         }
-    }while(true);
+    } while (true);
     return 0;
 }
