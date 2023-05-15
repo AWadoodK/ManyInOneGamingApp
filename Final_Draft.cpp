@@ -10,6 +10,8 @@
 #include <sstream>
 using namespace std;
 
+//Global Functions
+bool ingame_condition = true;
 // file handling function
 void view_score(string path)
 {
@@ -83,6 +85,9 @@ void Store_in_file(int newscore, string &path)
     write.close();
     cout << "Score Saved Successfully" << endl;
 }
+
+
+
 
 // SNAKE GAME
 int i_size = 30;
@@ -389,6 +394,45 @@ void Snakegame()
         cout << "Have a good day sir" << endl;
     }
 }
+void INGAME_Snake()
+{
+    int ingame_option;
+    do
+    {   system("cls");
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t         Snake Game          " << endl;
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t   Select from the following  " << endl;
+        cout << "\t\t                              " << endl;
+        cout << "\t\t                              " << endl;
+        cout << "\t\t   1. Continue to Game              " << endl;
+        cout << "\t\t   2. View High Scores                " << endl;
+        cout << "\t\t   3. Back to Main            " << endl;
+        cout<<"\t\t------------------------------"<<endl;
+        cin>>ingame_option;
+        cout<<endl<<endl;
+        switch (ingame_option)
+        {
+            case 1:
+                Snakegame();
+                break;
+
+            case 2:
+                //highscore code;
+                break;
+            case 3:
+                ingame_condition = false;
+                system("cls");
+                break;
+            default:
+                cout<<"Invalid Option";
+                break;
+        }
+    } while (ingame_condition);
+    
+
+}
+
 
 // TIC TAC TOE
 char show;
@@ -438,6 +482,7 @@ void tictactoe_output()
     }
     cout << endl;
 }
+
 int tictactoe()
 {
     do
@@ -522,12 +567,52 @@ int tictactoe()
         cin >> again;
     } while (again == 0);
     return 0;
+}void INGAME_tictactoe()
+{
+    int ingame_option;
+    do
+    {   system("cls");
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t         Tic Tac Toe Game          " << endl;
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t   Select from the following  " << endl;
+        cout << "\t\t                              " << endl;
+        cout << "\t\t                              " << endl;
+        cout << "\t\t   1. Continue to Game              " << endl;
+        cout << "\t\t   2. View High Scores                " << endl;
+        cout << "\t\t   3. Back to Main            " << endl;
+        cout<<"\t\t------------------------------"<<endl;
+        cin>>ingame_option;
+        cout<<endl<<endl;
+        switch (ingame_option)
+        {
+            case 1:
+                tictactoe();
+                break;
+
+            case 2:
+                //highscore code;
+                break;
+            case 3:
+                ingame_condition = false;
+                system("cls");
+                break;
+            default:
+                cout<<"Invalid Option";
+                break;
+        }
+    } while (ingame_condition);
+    
+
 }
 
+
+//MAIN FUNCTIONS
 void Singleplayer()
-{
+{   
     int option;
     bool condition = true;
+    
     do
     {
         system("cls");
@@ -548,7 +633,15 @@ void Singleplayer()
         switch (option)
         {
         case 1:
-            Snakegame();
+            INGAME_Snake();
+            if(ingame_condition==false)
+            {
+                break;
+            }
+            else{
+                Snakegame();
+            }
+            
             break;
 
         case 2:
@@ -590,7 +683,15 @@ void Multiplayer()
         switch (option)
         {
         case 1:
-            tictactoe();
+            INGAME_tictactoe();
+            if(ingame_condition==false)
+            {
+                break;
+            }
+            else{
+                tictactoe();
+            }
+            
             break;
 
         case 2:
