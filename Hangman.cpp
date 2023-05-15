@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> fd1b4edb4ffcbf7d9c696ffc7a3f670c8e45e09a
 #include <iostream>
 #include <string.h>
 #include <vector>
