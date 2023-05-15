@@ -418,7 +418,8 @@ void INGAME_Snake()
                 break;
 
             case 2:
-                //highscore code;
+                view_score("ScoreSnake.csv");
+                system("pause");
                 break;
             case 3:
                 ingame_condition = false;
@@ -567,7 +568,8 @@ int tictactoe()
         cin >> again;
     } while (again == 0);
     return 0;
-}void INGAME_tictactoe()
+}
+void INGAME_tictactoe()
 {
     int ingame_option;
     do
@@ -579,8 +581,7 @@ int tictactoe()
         cout << "\t\t                              " << endl;
         cout << "\t\t                              " << endl;
         cout << "\t\t   1. Continue to Game              " << endl;
-        cout << "\t\t   2. View High Scores                " << endl;
-        cout << "\t\t   3. Back to Main            " << endl;
+        cout << "\t\t   2. Back to Main            " << endl;
         cout<<"\t\t------------------------------"<<endl;
         cin>>ingame_option;
         cout<<endl<<endl;
@@ -589,11 +590,7 @@ int tictactoe()
             case 1:
                 tictactoe();
                 break;
-
             case 2:
-                //highscore code;
-                break;
-            case 3:
                 ingame_condition = false;
                 system("cls");
                 break;
@@ -602,7 +599,6 @@ int tictactoe()
                 break;
         }
     } while (ingame_condition);
-    
 
 }
 //Truth and Dare
