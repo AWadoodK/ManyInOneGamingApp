@@ -9,6 +9,11 @@
 #include <string.h>
 using namespace std;
 
+
+
+
+
+//SNAKE GAME
 int i_size = 30;
 int j_size = 30;
 int foodspawn;
