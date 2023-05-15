@@ -1,17 +1,24 @@
 #include<iostream>
 #include<vector>
+#include<conio.h>
 using namespace std;
 void Singleplayer()
 {
     int option;
     bool condition = true;
     do
-    {
-        cout<<"Choose a game"<<endl;
-        cout<<"(1)Snake Game"<<endl;
-        cout<<"(2)Hangman"<<endl;
-        cout<<"(3)Wordly"<<endl;
-        cout<<"(4)Back to main"<<endl;
+    {   system("cls");
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t         Game Menu           " << endl;
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t   Select from the following  " << endl;
+        cout << "\t\t                              " << endl;
+        cout << "\t\t                              " << endl;
+        cout << "\t\t   1. Snake Game              " << endl;
+        cout << "\t\t   2. Hangman                 " << endl;
+        cout << "\t\t   3. Wordly                  " << endl;
+        cout << "\t\t   4. Back to Main            " << endl;
+        cout<<"\t\t------------------------------"<<endl;
         cin>>option;
         cout<<endl<<endl;
         switch (option)
@@ -42,11 +49,17 @@ void Multiplayer()
     int option;
     bool condition = true;
     do
-    {
-        cout<<"Choose a game"<<endl;
-        cout<<"(1)TicTacToe"<<endl;
-        cout<<"(2)Truth And Dare"<<endl;
-        cout<<"(3)Back to Main"<<endl;
+    {   system("cls");
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t          Game Menu           " << endl;
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t   Select from the following  " << endl;
+        cout << "\t\t                             " << endl;
+        cout << "\t\t                             " << endl;
+        cout << "\t\t   1. TicTacToe               " << endl;
+        cout << "\t\t   2. Truth And Dare          " << endl;
+        cout << "\t\t   3. Back to Main            " << endl;
+        cout<<"\t\t------------------------------"<<endl;
         cin>>option;
         cout<<endl<<endl;
         switch (option)
@@ -75,9 +88,9 @@ int main()
     cout<<"\t\t-------------------------------"<<endl;
     int option;
     do{
-
+        system("cls");
         cout << "\t\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
-        cout << "\t\tX         Game Menu           X" << endl;
+        cout << "\t\tX         Main Menu           X" << endl;
         cout << "\t\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
         cout << "\t\tX  Select from the following  X" << endl;
         cout << "\t\tX                             X" << endl;
@@ -90,11 +103,11 @@ int main()
         cin>>option;
         if(option == 1)
         {
-            
+            system("cls");
             Singleplayer();
         }
         else if(option == 2)
-        {
+        {   system("cls");
             Multiplayer();
         }
         else if(option == 3)
