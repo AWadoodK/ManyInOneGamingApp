@@ -1,5 +1,4 @@
-#ifndef HANGMAN.H
-#define HANGMAN.H
+
 #include <iostream>
 #include <string.h>
 #include <vector>
@@ -50,7 +49,7 @@ void hang(int a)
         cout << endl;
     }
 }
-void Hangman()
+int main()
 {
     cout << "<<<<<<-----------------Welcome to Hangman--------------------->>>>>>" << endl;
     vector<char> letters;
@@ -139,6 +138,5 @@ void Hangman()
         cout << "Congrats Champ. You Won!!";
     }
     cout << "\nthe word was " << arr << endl;
-    return;
+    return 0;
 }
-#endif
