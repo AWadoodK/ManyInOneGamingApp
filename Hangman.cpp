@@ -1,9 +1,69 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <sstream>
 #include <conio.h>
+#include <fstream>
 using namespace std;
+string Easy[15] = {"Cat", "Dog", "Hat", "Car", "Sun", "Bed", "Cup", "Ball", "Tree", "Book", "Rain", "Lamp", "Duck", "Fish", "Bird"};
+string Medium[15] = {"Guitar", "Pizza", "Tiger", "Apple", "Snake", "Rabbit", "Robot", "Tadpole", "Monkey", "Chair", "Banana", "Mouse", "House", "Water", "Music"};
+string Hard[15] = {"Elephant", "Chocolate", "Butterfly", "Universe", "Ecosystem", "Trampoline", "Parachute", " Symphony ", "Xylophone", "Kangaroo", "Chameleon", "Pharaoh", "Cucumber", "Labyrinth", "Pterodactyl"};
 // Wadood shall make this hangman look better
+void Store_in_file(int newscore)
+{
+    ifstream file("ScoreHangman.csv");
+    stringstream updateContent;
+    bool namefound = false;
+    string line;
+    string name;
+    cout << "Enter your name: ";
+    cin >> name;
+    string player;
+    for (int i = 0; i < name.length(); i++)
+    {
+        name[i] = tolower(name[i]);
+    }
+    while (getline(file, line))
+    {
+        stringstream ss(line);
+        getline(ss, player, ',');
+        if (name == player)
+        {
+            namefound = true;
+            string currentscore;
+            getline(ss, currentscore, ',');
+            int score = stoi(currentscore);
+            if (score < newscore)
+            {
+                // Update the Score
+                updateContent << name << "," << newscore << endl;
+            }
+            else
+            {
+                // Keep the current Score
+                updateContent << line << endl;
+            }
+        }
+        else
+        {
+            updateContent << line << endl;
+        }
+    }
+    if (!namefound)
+    {
+        updateContent << name << "," << newscore << endl;
+    }
+    file.close();
+    ofstream write("ScoreHangman.csv");
+    if (!write.is_open())
+    {
+        cout << "Couldn't Open the file" << endl;
+        return;
+    }
+    write << updateContent.str();
+    write.close();
+    cout << "Score Saved Successfully" << endl;
+}
 void hang(int a)
 {
     system("cls");
@@ -50,100 +110,149 @@ void hang(int a)
         cout << endl;
     }
 }
-int main()
+void Hangman()
 {
+    int score = 0, Multiplier;
     cout << "<<<<<<-----------------Welcome to Hangman--------------------->>>>>>" << endl;
-    vector<char>letters;
-    string arr,word;
-    cout<<"Enter the word: ";
-    cin>>arr;
-    word = arr;
-    int length = arr.length();
-    char array[length];
-    for(int i = 0; i < length; i++)
+    cout << "Enter difficulty\n";
+    cout << "(1)Easy\n(2)Medium\n(3)hard\n";
+    int diff;
+    cin >> diff;
+    if (diff <= 0 || diff > 3)
     {
-        arr[i] = tolower(arr[i]);
-        array[i] = '_';
+        cout << "Invalid Difficulty" << endl;
+        return;
     }
-    system("cls");
-    cout<<"The word has "<<length<<" letters"<<endl;
-    char letter;
-    int lives = 7;
-    bool win = false;
-    int answers = 0;
-    while (lives != 0)
+
+    for (int start = 0; start < 15; start++)
     {
-        bool used = false;
-        bool correct = false;
-        if (lives < 7)
+        vector<char> letters;
+        string arr, word;
+        bool roundclear = false;
+        if (diff == 1)
         {
-            cout << "Letters  used" << endl;
-            for (int i = 0; i < 7 - lives; i++)
-            {
-                cout << letters.at(i) << ",\t";
-            }
+            arr = Easy[start];
+            Multiplier = 5;
         }
-        cout << "\nLives Left: " << lives;
-        cout << "\nEnter a Letter: ";
-        cin >> letter;
-        letter = tolower(letter);
-        if (!isalpha(letter))
+        else if (diff == 2)
         {
-            cout << "Only from english Alphabets" << endl;
-            continue;
+            arr = Medium[start];
+            Multiplier = 10;
         }
-        for (int j = 0; j < length; j++)
+        else
         {
-            if (array[j] == letter)
-            {
-                cout << "This letter already used" << endl;
-                used = true;
-                break;
-            }
+            arr = Hard[start];
+            Multiplier = 15;
         }
-        if (used)
-        {
-            continue;
-        }
+        word = arr;
+
+        int length = arr.length();
+        char array[length];
         for (int i = 0; i < length; i++)
         {
-            if (arr[i] == letter)
+            arr[i] = tolower(arr[i]);
+            array[i] = '_';
+        }
+        system("cls");
+        cout << "The word has " << length << " letters" << endl;
+        char letter;
+        int lives = 7;
+        bool win = false;
+        int answers = 0;
+        while (lives != 0)
+        {
+            bool used = false;
+            bool correct = false;
+            if (lives < 7)
             {
-                correct = true;
-                array[i] = letter;
-                answers++;
+                cout << "Letters  used" << endl;
+                for (int i = 0; i < 7 - lives; i++)
+                {
+                    cout << letters.at(i) << ",\t";
+                }
             }
-            cout << array[i];
+            cout << "\nLives Left: " << lives;
+            cout << "\nEnter a Letter: ";
+            cin >> letter;
+            letter = tolower(letter);
+            if (!isalpha(letter))
+            {
+                cout << "Only from english Alphabets" << endl;
+                continue;
+            }
+            for (int j = 0; j < length; j++)
+            {
+                if (array[j] == letter)
+                {
+                    cout << "This letter already used" << endl;
+                    used = true;
+                    break;
+                }
+            }
+            if (used)
+            {
+                continue;
+            }
+            for (int i = 0; i < length; i++)
+            {
+                if (arr[i] == letter)
+                {
+                    correct = true;
+                    array[i] = letter;
+                    answers++;
+                }
+                cout << array[i];
+            }
+            cout << endl;
+            if (correct != true)
+            {
+                lives--;
+                letters.push_back(letter);
+                hang(7 - lives);
+            }
+            else if (answers == length)
+            {
+                break;
+            }
+            else
+            {
+                hang(7 - lives);
+            }
+            for (int i = 0; i < length; i++)
+            {
+                cout << array[i];
+            }
+            cout << endl;
         }
-        cout << endl;
-        if (correct != true)
+        if (lives == 0)
         {
-            lives--;
-            letters.push_back(letter);
-            hang(7 - lives);
-        }
-        else if (answers == length)
-        {
+            cout << "You lost" << endl;
             break;
         }
         else
         {
-            hang(7 - lives);
+            cout << "Congrats Champ. You Won!!";
+            score = score + Multiplier;
+            roundclear = true;
         }
-        for(int i = 0; i < length; i++)
+        cout << "\nthe word was " << word << endl;
+        cout << "Score: " << score << endl;
+        if (roundclear == true)
         {
-            cout<<array[i];
+            cout << "Do you want to proceed?\n";
+            int option;
+            cout << "(1)Yes\t(2)No" << endl;
+            cin >> option;
+            if (option != 1)
+            {
+                break;
+            }
         }
-        cout<<endl;
     }
-    if (lives == 0)
-    {
-        cout << "You lost" << endl;
-    }
-    else
-    {
-        cout << "Congrats Champ. You Won!!";
-    }
-    cout << "\nthe word was " << word << endl;
+    Store_in_file(score);
+}
+int main()
+{
+    Hangman();
     return 0;
 }
