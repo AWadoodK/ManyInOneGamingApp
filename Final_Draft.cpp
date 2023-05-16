@@ -842,10 +842,7 @@ int tictactoe()
             }
             else
             {
-                if (t == 1)
-                    tictactoe_board[tictactoe_row][tictactoe_col] = tictactoe_p1;
-                else
-                    tictactoe_board[tictactoe_row][tictactoe_col] = tictactoe_p2;
+                tictactoe_board[tictactoe_row][tictactoe_col] = show;
             }
             system("cls");
             tictactoe_output();
@@ -853,16 +850,6 @@ int tictactoe()
             {
                 cout << "Player" << t << " Won!!" << endl;
                 break;
-            }
-            if (t == 1)
-            {
-                t = 2;
-                show = tictactoe_p2;
-            }
-            else
-            {
-                t = 1;
-                show = tictactoe_p1;
             }
             tictactoe_turn++;
         }
