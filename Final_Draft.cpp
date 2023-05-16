@@ -57,6 +57,60 @@ void view_score(string path)
     }
 }
 
+// Add score to file only wordlie
+void Store_in_file(int newscore, string &path, string name)
+{
+    ifstream file(path);
+    stringstream updateContent;
+    bool namefound = false;
+    string line;
+    string player;
+    for (int i = 0; i < name.length(); i++)
+    {
+        name[i] = tolower(name[i]);
+    }
+    while (getline(file, line))
+    {
+        stringstream ss(line);
+        getline(ss, player, ',');
+        if (name == player)
+        {
+            namefound = true;
+            string currentscore;
+            getline(ss, currentscore, ',');
+            int score = stoi(currentscore);
+            if (score < newscore)
+            {
+                // Update the Score
+                updateContent << name << "," << newscore << endl;
+            }
+            else
+            {
+                // Keep the current Score
+                updateContent << line << endl;
+            }
+        }
+        else
+        {
+            updateContent << line << endl;
+        }
+    }
+    if (!namefound)
+    {
+        updateContent << name << "," << newscore << endl;
+    }
+    file.close();
+    ofstream write(path);
+    if (!write.is_open())
+    {
+        cout << "Couldn't Open the file" << endl;
+        return;
+    }
+    write << updateContent.str();
+    write.close();
+    cout << "Score Saved Successfully" << endl;
+}
+
 // Add score to file
 void Store_in_file(int newscore, string &path)
 {
