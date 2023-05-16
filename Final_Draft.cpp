@@ -13,9 +13,9 @@ using namespace std;
 // Global Functions
 bool ingame_condition = true;
 
-// Windows Cursor Functions
+//Windows Cursor Functions
 
-// Removes cursor for better output
+//Removes cursor for better output
 void hideCursor()
 {
 
@@ -26,7 +26,7 @@ void hideCursor()
     SetConsoleCursorInfo(handle, &cursorInfo);
 }
 
-// Brings back cursor for ease in input
+//Brings back cursor for ease in input
 void showCursor()
 {
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -113,6 +113,11 @@ void Store_in_file(int newscore, string &path)
     write.close();
     cout << "Score Saved Successfully" << endl;
 }
+
+
+//Wordly GAME
+
+
 
 
 // Hangman GAME
@@ -239,7 +244,7 @@ void Hangman()
             letter = tolower(letter);
             if (!isalpha(letter))
             {
-                hang(7 - lives);
+                hang(7-lives);
                 cout << "Only from english Alphabets" << endl;
                 continue;
             }
@@ -247,7 +252,7 @@ void Hangman()
             {
                 if (array[j] == letter)
                 {
-                    hang(7 - lives);
+                    hang(7-lives);
                     cout << "This letter already used" << endl;
                     used = true;
                     break;
@@ -279,7 +284,7 @@ void Hangman()
                 }
                 if (repeated)
                 {
-                    hang(7 - lives);
+                    hang(7-lives);
                     cout << "Letter already used" << endl;
                 }
                 else
@@ -368,6 +373,7 @@ void INGAME_Hangman()
         }
     } while (ingame_condition);
 }
+
 
 
 // SNAKE GAME
@@ -712,6 +718,7 @@ void INGAME_Snake()
 }
 
 
+
 // TIC TAC TOE
 char show;
 int again = 0;
@@ -763,24 +770,10 @@ void tictactoe_output()
     cout << endl;
 }
 
-void refresh_board()
-{
-    tictactoe_board[0][0] = '1';
-    tictactoe_board[0][1] = '2';
-    tictactoe_board[0][2] = '3';
-    tictactoe_board[1][0] = '4';
-    tictactoe_board[1][1] = '5';
-    tictactoe_board[1][2] = '6';
-    tictactoe_board[2][0] = '7';
-    tictactoe_board[2][1] = '8';
-    tictactoe_board[2][2] = '9';
-}
-
 int tictactoe()
 {
     do
     {
-        refresh_board();
         system("cls");
         cout << "\t\t---------------------------------------------------" << endl;
         cout << "\n\n\t\t\t\tTic-Tac-Toe\n\n\n";
@@ -795,14 +788,7 @@ int tictactoe()
         tictactoe_output();
         while (tictactoe_turn < 9)
         {
-            if (tictactoe_turn % 2 == 0)
-            {
-                show = 'X';
-            }
-            else
-            {
-                show = 'O';
-            }
+            show = tictactoe_p1;
             cout << "\t\tPlayer " << t << " enter a number to Replace " << show << " with: \t";
             cin >> titactoeoption;
             if (titactoeoption < 1 || titactoeoption > 9)
@@ -903,6 +889,7 @@ void INGAME_tictactoe()
         }
     } while (ingame_condition);
 }
+
 
 
 // Truth and Dare
@@ -1110,6 +1097,8 @@ void truthdare()
         }
     }
 }
+
+
 
 // MAIN FUNCTIONS
 void Singleplayer()
