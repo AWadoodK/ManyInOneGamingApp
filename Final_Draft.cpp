@@ -12,6 +12,30 @@ using namespace std;
 
 // Global Functions
 bool ingame_condition = true;
+
+//Windows Cursor Functions
+
+//Removes cursor for better output
+void hideCursor()
+{
+
+    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO cursorInfo;
+    GetConsoleCursorInfo(handle, &cursorInfo);
+    cursorInfo.bVisible = false; // Hide the cursor
+    SetConsoleCursorInfo(handle, &cursorInfo);
+}
+
+//Brings back cursor for ease in input
+void showCursor()
+{
+    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO cursorInfo;
+    GetConsoleCursorInfo(handle, &cursorInfo);
+    cursorInfo.bVisible = true; // Show the cursor
+    SetConsoleCursorInfo(handle, &cursorInfo);
+}
+
 // file handling functions
 
 // Read from files
@@ -89,6 +113,8 @@ void Store_in_file(int newscore, string &path)
     write.close();
     cout << "Score Saved Successfully" << endl;
 }
+
+
 
 // Hangman GAME
 string Easy[15] = {"Cat", "Dog", "Hat", "Car", "Sun", "Bed", "Cup", "Ball", "Tree", "Book", "Rain", "Lamp", "Duck", "Fish", "Bird"};
@@ -344,6 +370,8 @@ void INGAME_Hangman()
     } while (ingame_condition);
 }
 
+
+
 // SNAKE GAME
 int i_size = 30;
 int j_size = 30;
@@ -370,6 +398,7 @@ void makeboard()
         }
     }
 }
+
 class Snake
 {
 private:
@@ -584,19 +613,10 @@ public:
                 break;
             }
         }
+        showCursor();
         Store_in_file(score, path);
     }
 };
-
-void hideCursor()
-{
-
-    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_CURSOR_INFO cursorInfo;
-    GetConsoleCursorInfo(handle, &cursorInfo);
-    cursorInfo.bVisible = false; // Hide the cursor
-    SetConsoleCursorInfo(handle, &cursorInfo);
-}
 
 void Snakegame()
 {
@@ -650,6 +670,7 @@ void Snakegame()
     {
         cout << "Have a good day sir" << endl;
     }
+    showCursor();
 }
 
 void INGAME_Snake()
@@ -691,6 +712,8 @@ void INGAME_Snake()
         }
     } while (ingame_condition);
 }
+
+
 
 // TIC TAC TOE
 char show;
@@ -862,6 +885,8 @@ void INGAME_tictactoe()
         }
     } while (ingame_condition);
 }
+
+
 
 // Truth and Dare
 void truthdare()
@@ -1068,6 +1093,8 @@ void truthdare()
         }
     }
 }
+
+
 
 // MAIN FUNCTIONS
 void Singleplayer()
