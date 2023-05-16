@@ -12,7 +12,9 @@ using namespace std;
 
 //Global Functions
 bool ingame_condition = true;
-// file handling function
+// file handling functions
+
+//Read from files
 void view_score(string path)
 {
     ifstream file(path);
@@ -30,6 +32,8 @@ void view_score(string path)
         cout << "Name: " << name << "\tScore: " << score << endl;
     }
 }
+
+//Add score to file
 void Store_in_file(int newscore, string &path)
 {
     ifstream file(path);
@@ -86,10 +90,14 @@ void Store_in_file(int newscore, string &path)
     cout << "Score Saved Successfully" << endl;
 }
 
+
+
+
 //Hangman GAME
 string Easy[15] = {"Cat", "Dog", "Hat", "Car", "Sun", "Bed", "Cup", "Ball", "Tree", "Book", "Rain", "Lamp", "Duck", "Fish", "Bird"};
 string Medium[15] = {"Guitar", "Pizza", "Tiger", "Apple", "Snake", "Rabbit", "Robot", "Tadpole", "Monkey", "Chair", "Banana", "Mouse", "House", "Water", "Music"};
 string Hard[15] = {"Elephant", "Chocolate", "Butterfly", "Universe", "Ecosystem", "Trampoline", "Parachute", " Symphony ", "Xylophone", "Kangaroo", "Chameleon", "Pharaoh", "Cucumber", "Labyrinth", "Pterodactyl"};
+
 void hang(int a)
 {
     system("cls");
@@ -136,44 +144,7 @@ void hang(int a)
         cout << endl;
     }
 }
-void INGAME_Hangman()
-{
-    int ingame_option;
-    do
-    {   system("cls");
-        cout<<"\t\t------------------------------"<<endl;
-        cout << "\t\t         Hangman Game          " << endl;
-        cout<<"\t\t------------------------------"<<endl;
-        cout << "\t\t   Select from the following  " << endl;
-        cout << "\t\t                              " << endl;
-        cout << "\t\t                              " << endl;
-        cout << "\t\t   1. Continue to Game              " << endl;
-        cout << "\t\t   2. View High Scores                " << endl;
-        cout << "\t\t   3. Back to Main            " << endl;
-        cout<<"\t\t------------------------------"<<endl;
-        cin>>ingame_option;
-        cout<<endl<<endl;
-        switch (ingame_option)
-        {
-            case 1:
-                Hangman();
-                break;
 
-            case 2:
-                //highscore code;
-                break;
-            case 3:
-                ingame_condition = false;
-                system("cls");
-                break;
-            default:
-                cout<<"Invalid Option";
-                break;
-        }
-    } while (ingame_condition);
-    
-
-}
 void Hangman()
 {
     int score = 0, Multiplier;
@@ -319,6 +290,49 @@ void Hangman()
     Store_in_file(score, path);
 }
 
+void INGAME_Hangman()
+{
+    int ingame_option;
+    do
+    {   system("cls");
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t         Hangman Game          " << endl;
+        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t   Select from the following  " << endl;
+        cout << "\t\t                              " << endl;
+        cout << "\t\t                              " << endl;
+        cout << "\t\t   1. Continue to Game              " << endl;
+        cout << "\t\t   2. View High Scores                " << endl;
+        cout << "\t\t   3. Back to Main            " << endl;
+        cout<<"\t\t------------------------------"<<endl;
+        cin>>ingame_option;
+        cout<<endl<<endl;
+        switch (ingame_option)
+        {
+            case 1:
+                Hangman();
+                break;
+
+            case 2:
+                //highscore code;
+                break;
+            case 3:
+                ingame_condition = false;
+                system("cls");
+                break;
+            default:
+                cout<<"Invalid Option";
+                break;
+        }
+    } while (ingame_condition);
+    
+
+}
+
+
+
+
+
 
 // SNAKE GAME
 int i_size = 30;
@@ -328,6 +342,7 @@ int board[30][30];
 char boarddisplay[30][30];
 int yourfinalscore = 0;
 void file(int diff, int score);
+
 void makeboard()
 {
     for (int i = 0; i < i_size; i++)
@@ -563,6 +578,7 @@ public:
         Store_in_file(score, path);
     }
 };
+
 void hideCursor()
 {
 
@@ -572,6 +588,7 @@ void hideCursor()
     cursorInfo.bVisible = false; // Hide the cursor
     SetConsoleCursorInfo(handle, &cursorInfo);
 }
+
 void Snakegame()
 {
     int difficulty;
@@ -625,6 +642,7 @@ void Snakegame()
         cout << "Have a good day sir" << endl;
     }
 }
+
 void INGAME_Snake()
 {
     int ingame_option;
@@ -666,6 +684,8 @@ void INGAME_Snake()
 }
 
 
+
+
 // TIC TAC TOE
 char show;
 int again = 0;
@@ -693,6 +713,7 @@ bool tictactoe_game()
         return true;
     return false;
 }
+
 void tictactoe_output()
 {
     // display tictactoe_board
@@ -800,6 +821,7 @@ int tictactoe()
     } while (again == 0);
     return 0;
 }
+
 void INGAME_tictactoe()
 {
     int ingame_option;
@@ -832,6 +854,9 @@ void INGAME_tictactoe()
     } while (ingame_condition);
 
 }
+
+
+
 //Truth and Dare
 void truthdare() {
     string pername;
@@ -1145,6 +1170,8 @@ void Multiplayer()
         }
     } while (condition);
 }
+
+
 int main()
 {
     cout << "\t\t------------------------------" << endl;
