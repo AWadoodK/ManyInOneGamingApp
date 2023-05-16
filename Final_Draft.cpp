@@ -314,7 +314,8 @@ void INGAME_Hangman()
                 break;
 
             case 2:
-                //highscore code;
+                view_score("ScoreHangman.csv");
+                system("pause");
                 break;
             case 3:
                 ingame_condition = false;
@@ -325,8 +326,6 @@ void INGAME_Hangman()
                 break;
         }
     } while (ingame_condition);
-    
-
 }
 
 
@@ -341,7 +340,6 @@ int foodspawn;
 int board[30][30];
 char boarddisplay[30][30];
 int yourfinalscore = 0;
-void file(int diff, int score);
 
 void makeboard()
 {
@@ -692,6 +690,7 @@ int again = 0;
 char tictactoe_p1 = 'X';
 char tictactoe_p2 = '0';
 char tictactoe_board[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
+
 bool tictactoe_game()
 {
     // check rows
@@ -1120,6 +1119,7 @@ void Singleplayer()
         }
     } while (condition);
 }
+
 void Multiplayer()
 {
     int option;
