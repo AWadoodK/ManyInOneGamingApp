@@ -115,6 +115,10 @@ void Store_in_file(int newscore, string &path)
 }
 
 
+//Wordly GAME
+
+
+
 
 // Hangman GAME
 string Easy[15] = {"Cat", "Dog", "Hat", "Car", "Sun", "Bed", "Cup", "Ball", "Tree", "Book", "Rain", "Lamp", "Duck", "Fish", "Bird"};

@@ -1,7 +1,9 @@
 #include <iostream>
 #include <vector>    
 #include <string>  
-#include<cstring>                         // NOT COMPLETE
+#include<cstring>   
+#include <conio.h>
+                      // NOT COMPLETE
 using namespace std;
 int score=0;
 int lives=5;
@@ -16,7 +18,7 @@ void introline()
 }
 void leveldisplay()
 {
-   
+    system("cls");
     cout << "*************" <<endl;
     cout << "*           *" <<endl;
     cout << "*  Welcome  *" <<endl;
@@ -74,7 +76,8 @@ class Game
                     cout<<"Nice "<<name<<" you got that right\n";
                     cout<<"Your score is: "<<score<<endl;
                     introline();
-
+                    system("pause");
+                    system("cls");
                 }
             }
             
@@ -82,17 +85,23 @@ class Game
                 lives--;
                 cout<<"Yikes! Be careful "<<name<<" got that wrong\n";
                 cout<<"You have "<<lives<<" lives left\n";
+                system("pause");
+                system("cls");
             }
             
             if (correct == limit) {
                 cout<<"Congrats you guessed them all right\n";
                 score=score+2;
-                cout<<"The score is: "<<score;
+                cout<<"The score is: "<<score<<endl;
+                system("pause");
+                system("cls");
                 break;
             }
             if (lives == 0)
             {
                 cout<<"You have lost\n";
+                system("pause");
+                system("cls");
                 break;
             }
         }
@@ -115,15 +124,38 @@ class LV1
         }  
    
 };
+class LV4
+{
+    string word4[6] = {"opts","tops","spot","pots","post","stop"};
+    public:
+    LV4()
+    {
+        Game lv4(0,6,6,word4);
+        lv4.play();
+    }
+};
+
 class LV2
 {
-    string lab[6] = {"opts","tops","spot","pots","post","stop"};
+    string word2[3] = {"snot","tons","nots"};
     public:
     LV2()
     {
-        Game lv2(0,6,6,lab);
+        Game lv2(0,3,3,word2);
         lv2.play();
     }
+
+};
+class LV3
+{
+    string word3[4] = {"east","eats","seat","teas"};
+    public:
+    LV3()
+    {
+        Game lv3(0,4,4,word3);
+        lv3.play();
+    }
+
 };
 
 void lvlmenu()
@@ -145,6 +177,27 @@ void wordleplay()
         lvlupdate++;
         leveldisplay();
         LV2 bac;
+        if(lives!=0)
+        {
+                lvlupdate++;
+                leveldisplay();
+                LV3 cab;
+                if(lives!=0)
+                {
+                    lvlupdate++;
+                    leveldisplay();
+                    LV4 cba;
+                }
+                 else
+                {
+                    cout<<name<<" your total score is: "<<score;
+                }
+
+        }
+        else
+        {
+            cout<<name<<" your total score is: "<<score;
+        }
     }
     else
     {
@@ -164,7 +217,7 @@ void wordle()
     cout<<"1) You will be given 4 letters and you would have to come up with a word from combination of those 4 letters\n2) You will have to guess a total of two to three words per level to move on\n3) You will have a total of five lives\n\n";
     introline();
     cout<<"\n";
-    lvlmenu();
+   // lvlmenu();
     cout<<"What is your name\n";
     cin>>name;
     cout<<"1)Play\n";
