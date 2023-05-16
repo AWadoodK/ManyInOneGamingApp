@@ -770,11 +770,25 @@ void tictactoe_output()
     cout << endl;
 }
 
+void refresh_board()
+{
+    tictactoe_board[0][0] = '1';
+    tictactoe_board[0][1] = '2';
+    tictactoe_board[0][2] = '3';
+    tictactoe_board[1][0] = '4';
+    tictactoe_board[1][1] = '5';
+    tictactoe_board[1][2] = '6';
+    tictactoe_board[2][0] = '7';
+    tictactoe_board[2][1] = '8';
+    tictactoe_board[2][2] = '9';
+}
+
 int tictactoe()
 {
     do
     {
         system("cls");
+        refresh_board();
         cout << "\t\t---------------------------------------------------" << endl;
         cout << "\n\n\t\t\t\tTic-Tac-Toe\n\n\n";
         cout << "\t\t---------------------------------------------------" << endl;
@@ -788,7 +802,14 @@ int tictactoe()
         tictactoe_output();
         while (tictactoe_turn < 9)
         {
-            show = tictactoe_p1;
+            if(tictactoe_turn % 2 == 0)
+            {
+                show = tictactoe_p1;
+            }
+            else
+            {
+                show = tictactoe_p2;
+            }
             cout << "\t\tPlayer " << t << " enter a number to Replace " << show << " with: \t";
             cin >> titactoeoption;
             if (titactoeoption < 1 || titactoeoption > 9)
