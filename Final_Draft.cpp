@@ -10,11 +10,11 @@
 #include <sstream>
 using namespace std;
 
-//Global Functions
+// Global Functions
 bool ingame_condition = true;
 // file handling functions
 
-//Read from files
+// Read from files
 void view_score(string path)
 {
     ifstream file(path);
@@ -33,7 +33,7 @@ void view_score(string path)
     }
 }
 
-//Add score to file
+// Add score to file
 void Store_in_file(int newscore, string &path)
 {
     ifstream file(path);
@@ -90,10 +90,7 @@ void Store_in_file(int newscore, string &path)
     cout << "Score Saved Successfully" << endl;
 }
 
-
-
-
-//Hangman GAME
+// Hangman GAME
 string Easy[15] = {"Cat", "Dog", "Hat", "Car", "Sun", "Bed", "Cup", "Ball", "Tree", "Book", "Rain", "Lamp", "Duck", "Fish", "Bird"};
 string Medium[15] = {"Guitar", "Pizza", "Tiger", "Apple", "Snake", "Rabbit", "Robot", "Tadpole", "Monkey", "Chair", "Banana", "Mouse", "House", "Water", "Music"};
 string Hard[15] = {"Elephant", "Chocolate", "Butterfly", "Universe", "Ecosystem", "Trampoline", "Parachute", " Symphony ", "Xylophone", "Kangaroo", "Chameleon", "Pharaoh", "Cucumber", "Labyrinth", "Pterodactyl"};
@@ -196,6 +193,11 @@ void Hangman()
         int answers = 0;
         while (lives != 0)
         {
+            for (int i = 0; i < length; i++)
+            {
+                cout << array[i];
+            }
+            cout << endl;
             bool used = false;
             bool correct = false;
             if (lives < 7)
@@ -212,6 +214,7 @@ void Hangman()
             letter = tolower(letter);
             if (!isalpha(letter))
             {
+                hang(7-lives);
                 cout << "Only from english Alphabets" << endl;
                 continue;
             }
@@ -219,6 +222,7 @@ void Hangman()
             {
                 if (array[j] == letter)
                 {
+                    hang(7-lives);
                     cout << "This letter already used" << endl;
                     used = true;
                     break;
@@ -236,14 +240,29 @@ void Hangman()
                     array[i] = letter;
                     answers++;
                 }
-                cout << array[i];
             }
             cout << endl;
             if (correct != true)
             {
-                lives--;
-                letters.push_back(letter);
-                hang(7 - lives);
+                bool repeated = false;
+                for (int k = 0; k < letters.size(); k++)
+                {
+                    if (letter == letters[k])
+                    {
+                        repeated = true;
+                    }
+                }
+                if (repeated)
+                {
+                    hang(7-lives);
+                    cout << "Letter already used" << endl;
+                }
+                else
+                {
+                    lives--;
+                    letters.push_back(letter);
+                    hang(7 - lives);
+                }
             }
             else if (answers == length)
             {
@@ -253,22 +272,17 @@ void Hangman()
             {
                 hang(7 - lives);
             }
-            for (int i = 0; i < length; i++)
-            {
-                cout << array[i];
-            }
-            cout << endl;
         }
         if (lives == 0)
         {
-            cout << "You lost" << endl;
-            cout << "\nthe word was " << word << endl;
-            cout << "Score: " << score << endl;
+            cout << "\n\n\tYou lost" << endl;
+            cout << "\n\n\tthe word was " << word << endl;
+            cout << "\n\n\tScore: " << score << endl;
             break;
         }
         else
         {
-            cout << "Congrats Champ. You Won!!";
+            cout << "\n\n\n\tCongrats Champ. You Won!!\n";
             score = score + Multiplier;
             roundclear = true;
         }
@@ -294,44 +308,41 @@ void INGAME_Hangman()
 {
     int ingame_option;
     do
-    {   system("cls");
-        cout<<"\t\t------------------------------"<<endl;
+    {
+        system("cls");
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t         Hangman Game          " << endl;
-        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t   Select from the following  " << endl;
         cout << "\t\t                              " << endl;
         cout << "\t\t                              " << endl;
         cout << "\t\t   1. Continue to Game              " << endl;
         cout << "\t\t   2. View High Scores                " << endl;
         cout << "\t\t   3. Back to Main            " << endl;
-        cout<<"\t\t------------------------------"<<endl;
-        cin>>ingame_option;
-        cout<<endl<<endl;
+        cout << "\t\t------------------------------" << endl;
+        cin >> ingame_option;
+        cout << endl
+             << endl;
         switch (ingame_option)
         {
-            case 1:
-                Hangman();
-                break;
+        case 1:
+            Hangman();
+            break;
 
-            case 2:
-                view_score("ScoreHangman.csv");
-                system("pause");
-                break;
-            case 3:
-                ingame_condition = false;
-                system("cls");
-                break;
-            default:
-                cout<<"Invalid Option";
-                break;
+        case 2:
+            view_score("ScoreHangman.csv");
+            system("pause");
+            break;
+        case 3:
+            ingame_condition = false;
+            system("cls");
+            break;
+        default:
+            cout << "Invalid Option";
+            break;
         }
     } while (ingame_condition);
 }
-
-
-
-
-
 
 // SNAKE GAME
 int i_size = 30;
@@ -645,44 +656,41 @@ void INGAME_Snake()
 {
     int ingame_option;
     do
-    {   system("cls");
-        cout<<"\t\t------------------------------"<<endl;
+    {
+        system("cls");
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t         Snake Game          " << endl;
-        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t   Select from the following  " << endl;
         cout << "\t\t                              " << endl;
         cout << "\t\t                              " << endl;
         cout << "\t\t   1. Continue to Game              " << endl;
         cout << "\t\t   2. View High Scores                " << endl;
         cout << "\t\t   3. Back to Main            " << endl;
-        cout<<"\t\t------------------------------"<<endl;
-        cin>>ingame_option;
-        cout<<endl<<endl;
+        cout << "\t\t------------------------------" << endl;
+        cin >> ingame_option;
+        cout << endl
+             << endl;
         switch (ingame_option)
         {
-            case 1:
-                Snakegame();
-                break;
+        case 1:
+            Snakegame();
+            break;
 
-            case 2:
-                view_score("ScoreSnake.csv");
-                system("pause");
-                break;
-            case 3:
-                ingame_condition = false;
-                system("cls");
-                break;
-            default:
-                cout<<"Invalid Option";
-                break;
+        case 2:
+            view_score("ScoreSnake.csv");
+            system("pause");
+            break;
+        case 3:
+            ingame_condition = false;
+            system("cls");
+            break;
+        default:
+            cout << "Invalid Option";
+            break;
         }
     } while (ingame_condition);
-    
-
 }
-
-
-
 
 // TIC TAC TOE
 char show;
@@ -825,51 +833,52 @@ void INGAME_tictactoe()
 {
     int ingame_option;
     do
-    {   system("cls");
-        cout<<"\t\t------------------------------"<<endl;
+    {
+        system("cls");
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t         Tic Tac Toe Game          " << endl;
-        cout<<"\t\t------------------------------"<<endl;
+        cout << "\t\t------------------------------" << endl;
         cout << "\t\t   Select from the following  " << endl;
         cout << "\t\t                              " << endl;
         cout << "\t\t                              " << endl;
         cout << "\t\t   1. Continue to Game              " << endl;
         cout << "\t\t   2. Back to Main            " << endl;
-        cout<<"\t\t------------------------------"<<endl;
-        cin>>ingame_option;
-        cout<<endl<<endl;
+        cout << "\t\t------------------------------" << endl;
+        cin >> ingame_option;
+        cout << endl
+             << endl;
         switch (ingame_option)
         {
-            case 1:
-                tictactoe();
-                break;
-            case 2:
-                ingame_condition = false;
-                system("cls");
-                break;
-            default:
-                cout<<"Invalid Option";
-                break;
+        case 1:
+            tictactoe();
+            break;
+        case 2:
+            ingame_condition = false;
+            system("cls");
+            break;
+        default:
+            cout << "Invalid Option";
+            break;
         }
     } while (ingame_condition);
-
 }
 
-
-
-//Truth and Dare
-void truthdare() {
+// Truth and Dare
+void truthdare()
+{
     string pername;
     int choice, rand_num;
     bool playing = true;
 
-    srand(time(NULL)); //initialize random seed
+    srand(time(NULL)); // initialize random seed
 
     cout << "Welcome to Truth and Dare!" << endl;
     cout << "What's your name? ";
     getline(cin, pername);
     cout << "Hi, " << pername << "! Let's play!" << endl;
 
-    while (playing) {
+    while (playing)
+    {
         cout << endl;
         cout << "Choose your option:" << endl;
         cout << "1. Truth" << endl;
@@ -878,193 +887,194 @@ void truthdare() {
         cout << "Enter your choice (1-3): ";
         cin >> choice;
 
-        switch (choice) {
+        switch (choice)
+        {
+        case 1:
+            cout << endl;
+            cout << "Truth: ";
+            // generate random number between 1 and 25
+            rand_num = rand() % 25 + 1;
+            switch (rand_num)
+            {
             case 1:
-                cout << endl;
-                cout << "Truth: ";
-                //generate random number between 1 and 25
-                rand_num = rand() % 25 + 1;
-                switch (rand_num) {
-                    case 1:
-                        cout << "What is your biggest fear?" << endl;
-                        break;
-                    case 2:
-                        cout << "What is your biggest secret?" << endl;
-                        break;
-                    case 3:
-                        cout << "What is your favorite food?" << endl;
-                        break;
-                    case 4:
-                        cout << "What is your favorite movie?" << endl;
-                        break;
-                    case 5:
-                        cout << "What is your favorite song?" << endl;
-                        break;
-                    case 6:
-                        cout << "What is your most embarrassing moment?" << endl;
-                        break;
-                    case 7:
-                        cout << "Have you ever cheated on a test or exam?" << endl;
-                        break;
-                    case 8:
-                        cout << "What is the craziest thing you've ever done?" << endl;
-                        break;
-                    case 9:
-                        cout << "What is your biggest regret?" << endl;
-                        break;
-                    case 10:
-                        cout << "What is your favorite hobby?" << endl;
-                        break;
-                    case 11:
-                        cout << "What is your dream job?" << endl;
-                        break;
-                    case 12:
-                        cout << "What is your favorite book?" << endl;
-                        break;
-                    case 13:
-                        cout << "What is your biggest accomplishment?" << endl;
-                        break;
-                    case 14:
-                        cout << "What is the one thing you cannot live without?" << endl;
-                        break;
-                    case 15:
-                        cout << "What is the most expensive thing you've ever bought?" << endl;
-                        break;
-                    case 16:
-                        cout << "What is the one thing you would change about yourself?" << endl;
-                        break;
-                    case 17:
-                        cout << "What is the one thing you would change about the world?" << endl;
-                        break;
-                    case 18:
-                        cout << "What is your biggest pet peeve?" << endl;
-                        break;
-                    case 19:
-                        cout << "What is the one thing you are most proud of?" << endl;
-                        break;
-                    case 20:
-                        cout << "What is the most embarrassing thing in your room?" << endl;
-                        break;
-                    case 21:
-                        cout << "What is your favorite childhood memory?" << endl;
-                        break;
-                    case 22:
-                        cout << "What is the one thing you've always wanted to do?" << endl;
-                        break;
-                    case 23:
-                        cout << "What is the craziest thing you've ever done in public?" << endl;
-                        break;
-                    case 24:
-                        cout << "What is the worst date you've ever been on?" << endl;
-                        break;
-                    case 25:
-                        cout << "What is the most embarrassing thing you've ever said?" << endl;
-                        break;
-                }
+                cout << "What is your biggest fear?" << endl;
                 break;
             case 2:
-                cout << endl;
-                cout << "Dare: ";
-                //generate random number between 1 and 25
-                rand_num = rand() % 25 + 1;
-                switch (rand_num) {
-                    case 1:
-                        cout << "Sing a song out loud in a public place." << endl;
-                        break;
-                    case 2:
-                        cout << "Do 10 pushups." << endl;
-                        break;
-                    case 3:
-                        cout << "Do the Macarena dance." << endl;
-                        break;
-                    case 4:
-                        cout << "Say the alphabet backwards." << endl;
-                        break;
-                    case 5:
-                        cout << "Call a friend and sing happy birthday to them." << endl;
-                        break;
-                    case 6:
-                        cout << "Eat a spoonful of mustard." << endl;
-                        break;
-                    case 7:
-                        cout << "Do a handstand against the wall for 10 seconds." << endl;
-                        break;
-                    case 8:
-                        cout << "Hop on one foot for 30 seconds." << endl;
-                        break;
-                    case 9:
-                        cout << "Do 10 jumping jacks." << endl;
-                        break;
-                    case 10:
-                        cout << "Put an ice cube down your shirt and let it melt." << endl;
-                        break;
-                    case 11:
-                        cout << "Do a silly dance." << endl;
-                        break;
-                    case 12:
-                        cout << "Go outside and take a picture with a stranger." << endl;
-                        break;
-                    case 13:
-                        cout << "Do 10 burpees." << endl;
-                        break;
-                    case 14:
-                        cout << "Eat a spoonful of hot sauce." << endl;
-                        break;
-                    case 15:
-                        cout << "Do a cartwheel." << endl;
-                        break;
-                    case 16:
-                        cout << "Do a backbend." << endl;
-                        break;
-                    case 17:
-                        cout << "Balance a book on your head and walk in a straight line." << endl;
-                        break;
-                    case 18:
-                        cout << "Draw a self-portrait blindfolded." << endl;
-                        break;
-                    case 19:
-                        cout << "Take a shot of lemon juice." << endl;
-                        break;
-                    case 20:
-                        cout << "Try to do the splits." << endl;
-                        break;
-                    case 21:
-                        cout << "Speak in a fake accent for the next hour." << endl;
-                        break;
-                    case 22:
-                        cout << "Wear your clothes backwards for the rest of the game." << endl;
-                        break;
-                    case 23:
-                        cout << "Do 20 jumping jacks while holding your breath." << endl;
-                        break;
-                    case 24:
-                        cout << "Run in place for 30 seconds." << endl;
-                        break;
-                    case 25:
-                        cout << "Go up to a stranger and ask for a piggyback ride." << endl;
-                        break;
-                }
+                cout << "What is your biggest secret?" << endl;
                 break;
             case 3:
-                cout << endl;
-                cout << "Thanks for playing, " << pername << "!" << endl;
-                playing = false;
+                cout << "What is your favorite food?" << endl;
                 break;
-            default:
+            case 4:
+                cout << "What is your favorite movie?" << endl;
+                break;
+            case 5:
+                cout << "What is your favorite song?" << endl;
+                break;
+            case 6:
+                cout << "What is your most embarrassing moment?" << endl;
+                break;
+            case 7:
+                cout << "Have you ever cheated on a test or exam?" << endl;
+                break;
+            case 8:
+                cout << "What is the craziest thing you've ever done?" << endl;
+                break;
+            case 9:
+                cout << "What is your biggest regret?" << endl;
+                break;
+            case 10:
+                cout << "What is your favorite hobby?" << endl;
+                break;
+            case 11:
+                cout << "What is your dream job?" << endl;
+                break;
+            case 12:
+                cout << "What is your favorite book?" << endl;
+                break;
+            case 13:
+                cout << "What is your biggest accomplishment?" << endl;
+                break;
+            case 14:
+                cout << "What is the one thing you cannot live without?" << endl;
+                break;
+            case 15:
+                cout << "What is the most expensive thing you've ever bought?" << endl;
+                break;
+            case 16:
+                cout << "What is the one thing you would change about yourself?" << endl;
+                break;
+            case 17:
+                cout << "What is the one thing you would change about the world?" << endl;
+                break;
+            case 18:
+                cout << "What is your biggest pet peeve?" << endl;
+                break;
+            case 19:
+                cout << "What is the one thing you are most proud of?" << endl;
+                break;
+            case 20:
+                cout << "What is the most embarrassing thing in your room?" << endl;
+                break;
+            case 21:
+                cout << "What is your favorite childhood memory?" << endl;
+                break;
+            case 22:
+                cout << "What is the one thing you've always wanted to do?" << endl;
+                break;
+            case 23:
+                cout << "What is the craziest thing you've ever done in public?" << endl;
+                break;
+            case 24:
+                cout << "What is the worst date you've ever been on?" << endl;
+                break;
+            case 25:
+                cout << "What is the most embarrassing thing you've ever said?" << endl;
+                break;
+            }
+            break;
+        case 2:
+            cout << endl;
+            cout << "Dare: ";
+            // generate random number between 1 and 25
+            rand_num = rand() % 25 + 1;
+            switch (rand_num)
+            {
+            case 1:
+                cout << "Sing a song out loud in a public place." << endl;
+                break;
+            case 2:
+                cout << "Do 10 pushups." << endl;
+                break;
+            case 3:
+                cout << "Do the Macarena dance." << endl;
+                break;
+            case 4:
+                cout << "Say the alphabet backwards." << endl;
+                break;
+            case 5:
+                cout << "Call a friend and sing happy birthday to them." << endl;
+                break;
+            case 6:
+                cout << "Eat a spoonful of mustard." << endl;
+                break;
+            case 7:
+                cout << "Do a handstand against the wall for 10 seconds." << endl;
+                break;
+            case 8:
+                cout << "Hop on one foot for 30 seconds." << endl;
+                break;
+            case 9:
+                cout << "Do 10 jumping jacks." << endl;
+                break;
+            case 10:
+                cout << "Put an ice cube down your shirt and let it melt." << endl;
+                break;
+            case 11:
+                cout << "Do a silly dance." << endl;
+                break;
+            case 12:
+                cout << "Go outside and take a picture with a stranger." << endl;
+                break;
+            case 13:
+                cout << "Do 10 burpees." << endl;
+                break;
+            case 14:
+                cout << "Eat a spoonful of hot sauce." << endl;
+                break;
+            case 15:
+                cout << "Do a cartwheel." << endl;
+                break;
+            case 16:
+                cout << "Do a backbend." << endl;
+                break;
+            case 17:
+                cout << "Balance a book on your head and walk in a straight line." << endl;
+                break;
+            case 18:
+                cout << "Draw a self-portrait blindfolded." << endl;
+                break;
+            case 19:
+                cout << "Take a shot of lemon juice." << endl;
+                break;
+            case 20:
+                cout << "Try to do the splits." << endl;
+                break;
+            case 21:
+                cout << "Speak in a fake accent for the next hour." << endl;
+                break;
+            case 22:
+                cout << "Wear your clothes backwards for the rest of the game." << endl;
+                break;
+            case 23:
+                cout << "Do 20 jumping jacks while holding your breath." << endl;
+                break;
+            case 24:
+                cout << "Run in place for 30 seconds." << endl;
+                break;
+            case 25:
+                cout << "Go up to a stranger and ask for a piggyback ride." << endl;
+                break;
+            }
+            break;
+        case 3:
+            cout << endl;
+            cout << "Thanks for playing, " << pername << "!" << endl;
+            playing = false;
+            break;
+        default:
             cout << "Invalid input. Please choose 1, 2, or 3." << endl;
             break;
         }
+    }
 }
-}
 
-
-
-//MAIN FUNCTIONS
+// MAIN FUNCTIONS
 void Singleplayer()
-{   
+{
     int option;
     bool condition = true;
-    
+
     do
     {
         system("cls");
@@ -1086,23 +1096,25 @@ void Singleplayer()
         {
         case 1:
             INGAME_Snake();
-            if(ingame_condition==false)
+            if (ingame_condition == false)
             {
                 break;
             }
-            else{
+            else
+            {
                 Snakegame();
             }
-            
+
             break;
 
         case 2:
             INGAME_Hangman();
-            if(ingame_condition==false)
+            if (ingame_condition == false)
             {
                 break;
             }
-            else{
+            else
+            {
                 Hangman();
             }
             break;
@@ -1144,14 +1156,15 @@ void Multiplayer()
         {
         case 1:
             INGAME_tictactoe();
-            if(ingame_condition==false)
+            if (ingame_condition == false)
             {
                 break;
             }
-            else{
+            else
+            {
                 tictactoe();
             }
-            
+
             break;
 
         case 2:
@@ -1170,7 +1183,6 @@ void Multiplayer()
         }
     } while (condition);
 }
-
 
 int main()
 {

@@ -201,14 +201,29 @@ void Hangman()
                     array[i] = letter;
                     answers++;
                 }
-                cout << array[i];
+                // cout << array[i];
             }
             cout << endl;
             if (correct != true)
             {
-                lives--;
-                letters.push_back(letter);
-                hang(7 - lives);
+                bool repeated = false;
+                for (int k = 0; k < letters.size(); k++)
+                {
+                    if (letter == letters[k])
+                    {
+                        repeated = true;
+                    }
+                }
+                if (!repeated)
+                {
+                    lives--;
+                    letters.push_back(letter);
+                    hang(7 - lives);
+                }
+                else
+                {
+                    cout<<"Letter already used"<<endl;
+                }
             }
             else if (answers == length)
             {
