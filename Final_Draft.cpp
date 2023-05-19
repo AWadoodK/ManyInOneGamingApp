@@ -58,7 +58,7 @@ void view_score(string path)
 }
 
 // Add score to file only wordlie
-void Store_in_file(int newscore, string &path, string name)
+void Store_in_file(int newscore, string path, string name)
 {
     ifstream file(path);
     stringstream updateContent;
@@ -370,6 +370,12 @@ void wordleplay()
     {
         cout<<name<<" your total score is: "<<score;
     }
+
+    for(int i = 0; i < name.length(); i++)
+    {
+        name[i] = tolower(name[i]);
+    }   
+    Store_in_file(score, "ScoreWordle.csv", name);
 }
 
 void wordle()
@@ -387,25 +393,7 @@ void wordle()
    // lvlmenu();
     cout<<"What is your name\n";
     cin>>name;
-    cout<<"1)Play\n";
-    cout<<"2)Check high score\n\n";
-    
-    cout<<"Press 1 or 2\n";
-    cin>>press;
-    if(press==1)
-    {
-        wordleplay();
-    }
-    else if(press == 2)
-    {
-        //add the highscore file
-    }
-    else
-    {
-        cout<<"Invalid option! try again\n";
-        wordle();
-    }
-
+    wordleplay();
 }
 
 void INGAME_wordle()
@@ -434,7 +422,7 @@ void INGAME_wordle()
             break;
 
         case 2:
-            view_score("ScoreHangman.csv");
+            view_score("ScoreWordle.csv");
             system("pause");
             break;
         case 3:
